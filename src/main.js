@@ -202,7 +202,8 @@ class YasFlixApp {
                 this.showResultsSelection(results.slice(0, 5));
             }
         } catch (e) {
-            alert('検索中にエラーが発生しました');
+            console.error('Search error:', e);
+            alert(`検索中にエラーが発生しました: ${e.message || '不明なエラー'}\nAPIキーが原因の可能性があります。`);
         }
     }
 

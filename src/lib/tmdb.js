@@ -4,6 +4,10 @@ const BASE_URL = 'https://api.themoviedb.org/3';
 export const TMDB = {
     searchSeries: async (query) => {
         const response = await fetch(`${BASE_URL}/search/tv?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(query)}&language=ja-JP`);
+        if (!response.ok) {
+            const errData = await response.json();
+            throw new Error(errData.status_message || `HTTP Error ${response.status}`);
+        }
         const data = await response.json();
         return data.results;
     },
