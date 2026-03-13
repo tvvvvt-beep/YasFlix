@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "entries": {
+    "632da4958130b545e6fa50d31bee4194bc461dd11a4da9f128717d2f988aa53e": {
+      "planId": "632da4958130b545e6fa50d31bee4194bc461dd11a4da9f128717d2f988aa53e",
+      "ownerWorkspaceId": "1c96f979-a359-4122-9d5d-4cd539f88f44",
+      "sourceType": "brain",
+      "brainSourcePath": "/Users/toshihirosakai/.gemini/antigravity/brain/2273e65d-9573-4145-b569-1532ef7e58fc/implementation_plan.md",
+      "mirrorPath": "brain_632da4958130b545e6fa50d31bee4194bc461dd11a4da9f128717d2f988aa53e.md",
+      "topic": "Implementation Plan - YasFlix",
+      "createdAt": "2026-03-13T12:36:38.494Z",
+      "updatedAt": "2026-03-13T12:36:38.931Z",
+      "status": "active"
+    }
+  }
+}
