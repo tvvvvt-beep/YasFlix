@@ -31,7 +31,8 @@ class YasFlixApp {
             closeResults: document.getElementById('close-results'),
             detailsModal: document.getElementById('details-modal'),
             closeDetails: document.getElementById('close-details'),
-            removeShow: document.getElementById('remove-show')
+            removeShow: document.getElementById('remove-show'),
+            apiKeyInput: document.getElementById('api-key-input')
         };
 
         this.currentDetailsId = null;
@@ -53,6 +54,18 @@ class YasFlixApp {
     async renderDashboard() {
         this.elements.main.innerHTML = '<div class="loading-state"><div class="spinner"></div><p>最新情報を取得中...</p></div>';
         
+        if (!Store.getApiKey()) {
+            this.elements.main.innerHTML = `
+                <div class="api-warning">
+                    ⚠️ TMDB APIキーが設定されていません。右上の設定から入力してください。
+                </div>
+                <div class="empty-state" style="text-align: center; color: var(--text-muted);">
+                    <p>APIキーを設定すると、音声で作品を追加できるようになります。</p>
+                </div>
+            `;
+            return;
+        }
+
         if (this.favorites.length === 0) {
             this.elements.main.innerHTML = `
                 <div class="empty-state" style="text-align: center; padding-top: 50px; color: var(--text-muted);">
@@ -142,6 +155,8 @@ class YasFlixApp {
                 <span>${p.name}</span>
             </div>
         `).join('');
+        
+        this.elements.apiKeyInput.value = Store.getApiKey();
 
         document.querySelectorAll('.provider-item').forEach(el => {
             el.addEventListener('click', () => el.classList.toggle('selected'));
@@ -156,6 +171,10 @@ class YasFlixApp {
         
         this.settings.providers = selected;
         Store.saveSettings(this.settings);
+        
+        const apiKey = this.elements.apiKeyInput.value.trim();
+        Store.saveApiKey(apiKey);
+
         this.elements.settingsModal.classList.add('hidden');
         this.renderDashboard();
     }

@@ -1,9 +1,13 @@
-const TMDB_API_KEY = '4fb6e1d446979a0ebcc0230f36746864'; // Demo key, user should ideally use their own
+import { Store } from './store.js';
+
+const getApiKey = () => Store.getApiKey();
 const BASE_URL = 'https://api.themoviedb.org/3';
 
 export const TMDB = {
     searchSeries: async (query) => {
-        const response = await fetch(`${BASE_URL}/search/tv?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(query)}&language=ja-JP`);
+        const key = getApiKey();
+        if (!key) throw new Error('APIキーが設定されていません。右上の設定から入力してください。');
+        const response = await fetch(`${BASE_URL}/search/tv?api_key=${key}&query=${encodeURIComponent(query)}&language=ja-JP`);
         if (!response.ok) {
             const errData = await response.json();
             throw new Error(errData.status_message || `HTTP Error ${response.status}`);

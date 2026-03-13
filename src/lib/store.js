@@ -5,6 +5,9 @@ export const Store = {
     getSettings: () => JSON.parse(localStorage.getItem('yasflix_settings') || '{"providers": []}'),
     saveSettings: (settings) => localStorage.setItem('yasflix_settings', JSON.stringify(settings)),
     
+    getApiKey: () => localStorage.getItem('yasflix_tmdb_key') || '',
+    saveApiKey: (key) => localStorage.setItem('yasflix_tmdb_key', key),
+
     addFavorite: (show) => {
         const favorites = Store.getFavorites();
         if (!favorites.find(f => f.id === show.id)) {

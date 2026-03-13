@@ -65,7 +65,13 @@
                 <div class="provider-grid" id="provider-selector">
                     <!-- Providers will be injected -->
                 </div>
-                <button id="save-settings" class="primary-btn">保存する</button>
+                <div class="settings-section">
+                    <h3>TMDB API 設定</h3>
+                    <p class="settings-hint">作品情報を取得するために必要です。</p>
+                    <input type="password" id="api-key-input" placeholder="TMDB API Key を入力" class="key-input">
+                    <a href="https://www.themoviedb.org/settings/api" target="_blank" class="text-link">キーを取得する (無料)</a>
+                </div>
+                <button id="save-settings" class="primary-btn">設定を保存</button>
             </div>
         </div>
 
