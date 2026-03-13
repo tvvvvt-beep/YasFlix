@@ -1,26 +1,39 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "*.html",
-      "use": "@vercel/static"
-    }
-  ],
+  "cleanUrls": true,
+  "trailingSlash": false,
   "routes": [
     {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/style.css",
+      "dest": "/style.css",
+      "headers": {
+        "Content-Type": "text/css; charset=utf-8",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "DENY",
+        "X-XSS-Protection": "1; mode=block"
+      }
+    },
+    {
+      "src": "/src/(.*)",
+      "dest": "/src/$1",
+      "headers": {
+        "Content-Type": "text/javascript; charset=utf-8",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "DENY",
+        "X-XSS-Protection": "1; mode=block"
+      }
+    },
+    {
       "src": "/(.*)",
-      "dest": "/$1",
+      "dest": "/index.html",
       "headers": {
         "X-Content-Type-Options": "nosniff",
         "X-Frame-Options": "DENY",
         "X-XSS-Protection": "1; mode=block"
       }
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
     }
   ]
 }
