@@ -59,7 +59,7 @@
         </div>
 
         <div id="settings-modal" class="modal hidden">
-            <div class="modal-content glass">
+            <div class="modal-content glass scrollable">
                 <h2>サブスク設定</h2>
                 <p>契約中のサービスを選択してください</p>
                 <div class="provider-grid" id="provider-selector">
@@ -70,6 +70,21 @@
                     <p class="settings-hint">作品情報を取得するために必要です。</p>
                     <input type="password" id="api-key-input" placeholder="TMDB API Key を入力" class="key-input">
                     <a href="https://www.themoviedb.org/settings/api" target="_blank" class="text-link">キーを取得する (無料)</a>
+                </div>
+                <div class="settings-section">
+                    <h3>通知設定</h3>
+                    <p class="settings-hint">新しいエピソードのお知らせを受け取ります</p>
+                    <button id="enable-notifications" class="secondary-btn">通知を有効にする</button>
+                    <p id="notification-status" class="notification-status"></p>
+                </div>
+                <div class="settings-section">
+                    <h3>データ管理</h3>
+                    <p class="settings-hint">お気に入りデータのバックアップや復元</p>
+                    <div class="data-buttons">
+                        <button id="export-btn" class="secondary-btn">エクスポート</button>
+                        <button id="import-btn" class="secondary-btn">インポート</button>
+                    </div>
+                    <input type="file" id="import-file-input" accept=".json" style="display: none;">
                 </div>
                 <button id="save-settings" class="primary-btn">設定を保存</button>
             </div>

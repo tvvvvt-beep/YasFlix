@@ -17,12 +17,14 @@ export const TMDB = {
     },
     
     getSeriesDetails: async (id) => {
-        const response = await fetch(`${BASE_URL}/tv/${id}?api_key=${TMDB_API_KEY}&language=ja-JP&append_to_response=watch/providers`);
+        const key = getApiKey();
+        const response = await fetch(`${BASE_URL}/tv/${id}?api_key=${key}&language=ja-JP&append_to_response=watch/providers`);
         return await response.json();
     },
-    
+
     getLatestEpisode: async (id) => {
-        const response = await fetch(`${BASE_URL}/tv/${id}?api_key=${TMDB_API_KEY}&language=ja-JP`);
+        const key = getApiKey();
+        const response = await fetch(`${BASE_URL}/tv/${id}?api_key=${key}&language=ja-JP`);
         const data = await response.json();
         return {
             season: data.number_of_seasons,

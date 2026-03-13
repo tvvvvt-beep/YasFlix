@@ -1,0 +1,26 @@
+{
+  "name": "yasflix",
+  "version": "2.1.0",
+  "description": "Japanese drama and anime tracking app with voice search",
+  "main": "index.html",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "build": "echo 'No build step required - static files'",
+    "deploy:netlify": "netlify deploy --prod",
+    "deploy:vercel": "vercel --prod"
+  },
+  "keywords": [
+    "anime",
+    "drama",
+    "japanese",
+    "tracking",
+    "tmdb"
+  ],
+  "author": "YasFlix",
+  "license": "MIT",
+  "devDependencies": {
+    "netlify-cli": "^17.0.0",
+    "vercel": "^32.0.0"
+  }
+}
