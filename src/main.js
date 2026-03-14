@@ -318,28 +318,58 @@ class YasFlixApp {
     }
 
     startVoiceInput() {
-        const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-        recognition.lang = 'ja-JP';
-        recognition.interimResults = true;
+        // ブラウザ対応チェック
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
-        this.elements.voiceModal.classList.remove('hidden');
-        this.elements.voiceStatus.innerText = '聴いています...';
-        this.elements.voiceTranscript.innerText = '';
+        if (!SpeechRecognition) {
+            alert('申し訳ありません。お使いのブラウザは音声認識に対応していません。\n\n対応ブラウザ:\n• Chrome/Edge (推奨)\n• Safari\n\n非対応:\n• Firefox');
+            return;
+        }
 
-        recognition.onresult = (event) => {
-            const transcript = event.results[0][0].transcript;
-            this.elements.voiceTranscript.innerText = transcript;
-            if (event.results[0].isFinal) {
-                this.searchShows(transcript);
-            }
-        };
+        try {
+            const recognition = new SpeechRecognition();
+            recognition.lang = 'ja-JP';
+            recognition.interimResults = true;
 
-        recognition.onerror = () => {
-            this.elements.voiceStatus.innerText = 'うまく聞き取れませんでした';
-            setTimeout(() => this.hideVoiceModal(), 1500);
-        };
+            this.elements.voiceModal.classList.remove('hidden');
+            this.elements.voiceStatus.innerText = '聴いています...';
+            this.elements.voiceTranscript.innerText = '';
 
-        recognition.start();
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                this.elements.voiceTranscript.innerText = transcript;
+                if (event.results[0].isFinal) {
+                    this.searchShows(transcript);
+                }
+            };
+
+            recognition.onerror = (event) => {
+                console.error('Speech recognition error:', event.error);
+                let errorMsg = 'うまく聞き取れませんでした';
+
+                if (event.error === 'no-speech') {
+                    errorMsg = '音声が検出されませんでした';
+                } else if (event.error === 'not-allowed') {
+                    errorMsg = 'マイクの使用が許可されていません。ブラウザの設定を確認してください。';
+                } else if (event.error === 'network') {
+                    errorMsg = 'ネットワークエラーが発生しました';
+                }
+
+                this.elements.voiceStatus.innerText = errorMsg;
+                setTimeout(() => this.hideVoiceModal(), 2000);
+            };
+
+            recognition.onend = () => {
+                console.log('Speech recognition ended');
+            };
+
+            recognition.start();
+
+        } catch (error) {
+            console.error('Speech recognition init error:', error);
+            alert(`音声認識の初期化に失敗しました: ${error.message}`);
+            this.hideVoiceModal();
+        }
     }
 
     async searchShows(query) {
